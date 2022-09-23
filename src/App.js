@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "./store/index";
+import "./App.css";
+import { numcake } from "./store/Buy-slice";
 function App() {
+  const num = useSelector((state) => state.numberofcake);
+  const dispatch = useDispatch();
+  const btnHandler = () => {
+    dispatch(actions.buycake());
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Initial Number of cake :{numcake.numberofcake}</h2>
+      <h2>Current number of cake: {num}</h2>
+      <button onClick={btnHandler}>Buy cake</button>
+      {num === 0 && <h2 style={{ color: "red" }}>Can't buy stock is over</h2>}
     </div>
   );
 }
